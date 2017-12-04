@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="fonts/iconfont.css">
+
+</head>
+<body>
+    <div class='wrap'>
+         <header>
+             <div class='one'>
+                   <span></span>
+                    <span>公司</span>
+                    <span><i class='iconfont icon-dizhi-01'></i></span></div>
+             <div class='two'>
+                    <span>融资v</span>
+                    <span>规模v</span>
+                    <span>行业v</span>
+             </div>
+         </header>
+            <section>
+                 <dl>
+                     <dt><img src="img/week_03.png" alt=""></dt>
+                     <dd>
+                         <h2>百度</h2>
+                         <h4>北京市海淀区西北旺</h4>
+                         <h5>互联网|已上市|10000人以上</h5>
+                         <p>热招：前端工程师等2382个职位<span>></span></p>
+                     </dd>
+                 </dl>
+                   
+            </section>
+            <footer>
+                 <ul>
+                     <li><i class='iconfont icon-youhuiquan-01'></i><p>优惠</p></li>
+                    <li><i class='iconfont icon-youhuiquan-01'></i><p>优惠</p></li>
+                    <li><i class='iconfont icon-youhuiquan-01'></i><p>优惠</p></li>
+                    <li><i class='iconfont icon-youhuiquan-01'></i><p>优惠</p></li>
+                 </ul>
+            </footer>
+    </div>
+    <script src='jquery-1.8.3.min.js'></script>
+    <script>
+     function ajax(url){
+         return new Promise(function(resolve,reject){
+               var xml = null;
+               if(window.XMLHttpRequest){
+                   xml=new XMLHttpRequest()
+               }else{
+                  xml=new ActiveXObject('Microsoft.XMLHTTP')
+               }   
+         
+               xml.onreadychange=function(){
+                   if(xml.readyState !==4 ) return;
+                   if(xml.status === 200) {
+                       resolve(xml.responseText)
+                   }else{
+                       reject(new Error(xnl.statusText))
+                   }
+               }
+                   xml.open('GET',url,true);
+                   xml.send(null)
+               })
+         }
+         ajax('http://localhost:8000').then(function(result){
+             var res = JSON.parse(result);
+             res.render.forEach(function(file){
+                 var ps='<dl><dt>'+file.img+'</dt><dd><h2>'+file.h2+'</h2><h4>'+file.h4+'</h4><h5>'+file.h5+'</h5><p>'+file.p+'</p></dd></dl>'
+                 $('section').append(ps);
+             })
+         }).catch(function(error){
+              console.log(error)
+         })
+     
+
+    </script>
+</body>
+</html>
